@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>なかよしルーレット｜Love Touch</title>
     
     <meta property="og:title" content="なかよしルーレット">
@@ -10,37 +10,42 @@
     <meta property="og:type" content="website">
     
     <style>
+        /* スマホ画面にぴったり収まるように調整 */
+        html, body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden; /* スクロールさせない */
+        }
+
         body {
             background-color: #ffebf0;
-            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
             color: #d63384;
         }
 
         .container {
             background-color: white;
-            padding: 30px;
-            border-radius: 35px;
+            padding: 20px;
+            border-radius: 30px;
             box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
             text-align: center;
-            max-width: 400px;
-            width: 90%;
+            width: 85%;
+            max-width: 350px;
             border: 3px solid #ffb6c1;
         }
 
         h1 {
-            font-size: 24px;
-            margin-bottom: 5px;
+            font-size: 20px;
+            margin: 5px 0;
             color: #ff69b4;
         }
 
         .heart-animation {
-            font-size: 45px;
-            margin-bottom: 10px;
+            font-size: 40px;
+            margin-bottom: 5px;
             animation: pulse 2s infinite;
         }
 
@@ -51,34 +56,33 @@
         }
 
         #result-display {
-            height: 150px;
+            height: 120px; /* 少し短くして収まりやすく */
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 20px;
+            font-size: 17px;
             font-weight: bold;
-            margin: 20px 0;
-            padding: 20px;
-            border-radius: 20px;
-            background: linear-gradient(145deg, #fff5f7, #ffffff);
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 15px;
+            background: #fffafb;
             border: 2px dashed #ffc0cb;
-            line-height: 1.5;
+            line-height: 1.4;
             color: #ff4081;
         }
 
         .btn-group {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
         }
 
         button {
             border: none;
-            padding: 16px;
-            font-size: 18px;
+            padding: 14px;
+            font-size: 16px;
             border-radius: 50px;
             cursor: pointer;
-            transition: 0.3s;
             font-weight: bold;
             width: 100%;
         }
@@ -86,34 +90,25 @@
         .spin-btn {
             background: linear-gradient(45deg, #ff69b4, #ff85a1);
             color: white;
-            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
-        }
-
-        .spin-btn:active {
-            transform: translateY(2px);
-            box-shadow: 0 2px 10px rgba(255, 105, 180, 0.4);
+            box-shadow: 0 4px 10px rgba(255, 105, 180, 0.3);
         }
 
         .line-btn {
             background-color: #06C755;
             color: white;
-            font-size: 15px;
-            text-decoration: none;
-            display: none; /* 初期は非表示 */
+            display: none;
             align-items: center;
             justify-content: center;
-            opacity: 0;
-            transition: opacity 0.5s;
+            text-decoration: none;
         }
 
         .line-btn.show {
             display: flex;
-            opacity: 1;
         }
 
         .desc {
-            font-size: 12px;
-            margin-top: 15px;
+            font-size: 11px;
+            margin-top: 10px;
             color: #ffb6c1;
         }
     </style>
@@ -123,10 +118,10 @@
 <div class="container">
     <div class="heart-animation">💖</div>
     <h1>なかよしルーレット</h1>
-    <p style="font-size: 14px; margin: 0;">体温で、トゲトゲした心を溶かそう</p>
+    <p style="font-size: 12px; margin: 0;">体温で、トゲトゲした心を溶かそう</p>
     
     <div id="result-display">
-        心の準備ができたら<br>ボタンを押してね
+        準備ができたら<br>ボタンを押してね
     </div>
 
     <div class="btn-group">
@@ -135,7 +130,7 @@
     </div>
 
     <div class="desc">
-        ※相手の反応を見ながら、優しく試してね
+        ※ふたりの幸せを応援しています
     </div>
 </div>
 
@@ -165,7 +160,7 @@
             display.innerText = methods[tempIndex];
             count++;
             
-            if (count > 15) {
+            if (count > 12) {
                 clearInterval(interval);
                 const finalIndex = Math.floor(Math.random() * methods.length);
                 currentResult = methods[finalIndex];
@@ -177,7 +172,7 @@
 
     function shareLine() {
         if (!currentResult) return;
-        const text = "【なかよしルーレットの結果】\n\n「" + currentResult + "」\n\nこれやっていい？仲直りしたいです。";
+        const text = "【なかよしルーレット】\n「" + currentResult + "」\n\nこれやっていい？仲直りしたいです。";
         const url = "https://line.me/R/msg/text/?" + encodeURIComponent(text);
         window.location.href = url;
     }
