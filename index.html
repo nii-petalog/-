@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>なかよしルーレット｜Love Touch</title>
+    
     <meta property="og:title" content="なかよしルーレット">
-    <meta property="og:description" content="ふたりの仲直りを応援する魔法のルーレット">
+    <meta property="og:description" content="二人の仲直りを応援する、魔法のルーレット。">
     <meta property="og:type" content="website">
     
     <style>
@@ -68,7 +69,7 @@
         .btn-group {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
 
         button {
@@ -88,13 +89,17 @@
             box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
         }
 
+        .spin-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 10px rgba(255, 105, 180, 0.4);
+        }
+
         .line-btn {
-            background-color: #06C755; /* LINEカラー */
+            background-color: #06C755;
             color: white;
             font-size: 15px;
-            display: none; /* 最初は隠しておく */
             text-decoration: none;
-            display: flex;
+            display: none; /* 初期は非表示 */
             align-items: center;
             justify-content: center;
             opacity: 0;
@@ -107,7 +112,7 @@
         }
 
         .desc {
-            font-size: 13px;
+            font-size: 12px;
             margin-top: 15px;
             color: #ffb6c1;
         }
@@ -118,65 +123,4 @@
 <div class="container">
     <div class="heart-animation">💖</div>
     <h1>なかよしルーレット</h1>
-    <p style="font-size: 14px; margin: 0;">体温で、トゲトゲした心を溶かそう</p>
-    
-    <div id="result-display">
-        心の準備ができたら<br>ボタンを押してね
-    </div>
-
-    <div class="btn-group">
-        <button class="spin-btn" onclick="spinRoulette()">愛のきっかけを作る</button>
-        <button id="line-share" class="line-btn" onclick="shareLine()">今の結果を相手に送る 💬</button>
-    </div>
-
-    <div class="desc">
-        ※相手の反応を見ながら、優しく試してね
-    </div>
-</div>
-
-<script>
-    let currentResult = "";
-    const methods = [
-        "何も言わずに、相手の体温を感じるまでぎゅーっとハグする",
-        "「仲直りのチューしよ？」と可愛くおねだりしてみる",
-        "相手の隣に座って、そっと肩に頭を乗せてみる",
-        "相手の手を両手で包み込んで、じっと目を見つめる",
-        "後ろからお腹のあたりを優しくバックハグする",
-        "相手の頬にそっと触れてから、優しくキスをする",
-        "指を絡める「恋人繋ぎ」をして、そのまま離さない",
-        "「ごめんね」と言いながら、相手の腕にすり寄ってみる",
-        "相手の膝枕をしてもらうか、相手を膝枕してあげる",
-        "頭をポンポンするか、よしよしして甘えさせてあげる"
-    ];
-
-    function spinRoulette() {
-        const display = document.getElementById('result-display');
-        const lineBtn = document.getElementById('line-share');
-        lineBtn.classList.remove('show');
-        
-        let count = 0;
-        const interval = setInterval(() => {
-            const tempIndex = Math.floor(Math.random() * methods.length);
-            display.innerText = methods[tempIndex];
-            count++;
-            
-            if (count > 15) {
-                clearInterval(interval);
-                const finalIndex = Math.floor(Math.random() * methods.length);
-                currentResult = methods[finalIndex];
-                display.innerHTML = "✨ " + currentResult + " ✨";
-                lineBtn.classList.add('show'); // 結果が出たらLINEボタンを表示
-            }
-        }, 60);
-    }
-
-    function shareLine() {
-        if (!currentResult) return;
-        const text = "【なかよしルーレットの結果】\n\n「" + currentResult + "」\n\nこれやっていい？仲直りしたいです。";
-        const url = "https://line.me/R/msg/text/?" + encodeURIComponent(text);
-        window.location.href = url;
-    }
-</script>
-
-</body>
-</html>
+    <p style="font-size: 14px; margin: 0;">体温で、トゲトゲした心を溶か
