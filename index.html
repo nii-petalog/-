@@ -123,4 +123,65 @@
 <div class="container">
     <div class="heart-animation">💖</div>
     <h1>なかよしルーレット</h1>
-    <p style="font-size: 14px; margin: 0;">体温で、トゲトゲした心を溶か
+    <p style="font-size: 14px; margin: 0;">体温で、トゲトゲした心を溶かそう</p>
+    
+    <div id="result-display">
+        心の準備ができたら<br>ボタンを押してね
+    </div>
+
+    <div class="btn-group">
+        <button class="spin-btn" onclick="spinRoulette()">愛のきっかけを作る</button>
+        <button id="line-share" class="line-btn" onclick="shareLine()">結果を相手に送る 💬</button>
+    </div>
+
+    <div class="desc">
+        ※相手の反応を見ながら、優しく試してね
+    </div>
+</div>
+
+<script>
+    let currentResult = "";
+    const methods = [
+        "何も言わずに、相手の体温を感じるまでぎゅーっとハグする",
+        "「仲直りのチューしよ？」と可愛くおねだりしてみる",
+        "相手の隣に座って、そっと肩に頭を乗せてみる",
+        "相手の手を両手で包み込んで、じっと目を見つめる",
+        "後ろからお腹のあたりを優しくバックハグする",
+        "相手の頬にそっと触れてから、優しくキスをする",
+        "指を絡める「恋人繋ぎ」をして、そのまま離さない",
+        "「ごめんね」と言いながら、相手の腕にすり寄ってみる",
+        "相手の膝枕をしてもらうか、相手を膝枕してあげる",
+        "頭をポンポンするか、よしよしして甘えさせてあげる"
+    ];
+
+    function spinRoulette() {
+        const display = document.getElementById('result-display');
+        const lineBtn = document.getElementById('line-share');
+        lineBtn.classList.remove('show');
+        
+        let count = 0;
+        const interval = setInterval(() => {
+            const tempIndex = Math.floor(Math.random() * methods.length);
+            display.innerText = methods[tempIndex];
+            count++;
+            
+            if (count > 15) {
+                clearInterval(interval);
+                const finalIndex = Math.floor(Math.random() * methods.length);
+                currentResult = methods[finalIndex];
+                display.innerHTML = "✨ " + currentResult + " ✨";
+                lineBtn.classList.add('show');
+            }
+        }, 60);
+    }
+
+    function shareLine() {
+        if (!currentResult) return;
+        const text = "【なかよしルーレットの結果】\n\n「" + currentResult + "」\n\nこれやっていい？仲直りしたいです。";
+        const url = "https://line.me/R/msg/text/?" + encodeURIComponent(text);
+        window.location.href = url;
+    }
+</script>
+
+</body>
+</html>
