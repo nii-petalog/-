@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>なかよしルーレット｜Love Touch</title>
+    <meta property="og:title" content="なかよしルーレット">
+    <meta property="og:description" content="ふたりの仲直りを応援する魔法のルーレット">
+    <meta property="og:type" content="website">
+    
+    <style>
+        body {
+            background-color: #ffebf0;
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #d63384;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 35px;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            border: 3px solid #ffb6c1;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+            color: #ff69b4;
+        }
+
+        .heart-animation {
+            font-size: 45px;
+            margin-bottom: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        #result-display {
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 20px;
+            background: linear-gradient(145deg, #fff5f7, #ffffff);
+            border: 2px dashed #ffc0cb;
+            line-height: 1.5;
+            color: #ff4081;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        button {
+            border: none;
+            padding: 16px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        .spin-btn {
+            background: linear-gradient(45deg, #ff69b4, #ff85a1);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+        }
+
+        .line-btn {
+            background-color: #06C755; /* LINEカラー */
+            color: white;
+            font-size: 15px;
+            display: none; /* 最初は隠しておく */
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .line-btn.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .desc {
+            font-size: 13px;
+            margin-top: 15px;
+            color: #ffb6c1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="heart-animation">💖</div>
+    <h1>なかよしルーレット</h1>
+    <p style="font-size: 14px; margin: 0;">体温で、トゲトゲした心を溶かそう</p>
+    
+    <div id="result-display">
+        心の準備ができたら<br>ボタンを押してね
+    </div>
+
+    <div class="btn-group">
+        <button class="spin-btn" onclick="spinRoulette()">愛のきっかけを作る</button>
+        <button id="line-share" class="line-btn" onclick="shareLine()">今の結果を相手に送る 💬</button>
+    </div>
+
+    <div class="desc">
+        ※相手の反応を見ながら、優しく試してね
+    </div>
+</div>
+
+<script>
+    let currentResult = "";
+    const methods = [
+        "何も言わずに、相手の体温を感じるまでぎゅーっとハグする",
+        "「仲直りのチューしよ？」と可愛くおねだりしてみる",
+        "相手の隣に座って、そっと肩に頭を乗せてみる",
+        "相手の手を両手で包み込んで、じっと目を見つめる",
+        "後ろからお腹のあたりを優しくバックハグする",
+        "相手の頬にそっと触れてから、優しくキスをする",
+        "指を絡める「恋人繋ぎ」をして、そのまま離さない",
+        "「ごめんね」と言いながら、相手の腕にすり寄ってみる",
+        "相手の膝枕をしてもらうか、相手を膝枕してあげる",
+        "頭をポンポンするか、よしよしして甘えさせてあげる"
+    ];
+
+    function spinRoulette() {
+        const display = document.getElementById('result-display');
+        const lineBtn = document.getElementById('line-share');
+        lineBtn.classList.remove('show');
+        
+        let count = 0;
+        const interval = setInterval(() => {
+            const tempIndex = Math.floor(Math.random() * methods.length);
+            display.innerText = methods[tempIndex];
+            count++;
+            
+            if (count > 15) {
+                clearInterval(interval);
+                const finalIndex = Math.floor(Math.random() * methods.length);
+                currentResult = methods[finalIndex];
+                display.innerHTML = "✨ " + currentResult + " ✨";
+                lineBtn.classList.add('show'); // 結果が出たらLINEボタンを表示
+            }
+        }, 60);
+    }
+
+    function shareLine() {
+        if (!currentResult) return;
+        const text = "【なかよしルーレットの結果】\n\n「" + currentResult + "」\n\nこれやっていい？仲直りしたいです。";
+        const url = "https://line.me/R/msg/text/?" + encodeURIComponent(text);
+        window.location.href = url;
+    }
+</script>
+
+</body>
+</html>
